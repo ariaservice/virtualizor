@@ -11,7 +11,7 @@ class Virtualizor{
     public $virtualizorEnduser;
     public $virtualizoAdmin;
 
-    public function __construct($config = [],$server=null)
+    public function __construct($config = [],$is_admin=0)
     {
          $this->virtualizorEnduser = new Virtualizor_Enduser_API(
              $config['ip'],
@@ -24,6 +24,9 @@ class Virtualizor{
              $config['ip'],
              $config['key'],
              $config['password']);
+
+    
+         $this->virtualizorEnduser->is_admin = $is_admin;
     }
 
     public function serviceDetails($vpsId){
