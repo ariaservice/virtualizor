@@ -1,7 +1,7 @@
 {
     "name": "ariaservice/virtualizor",
     "description": "Virtualizor API for Laravel",
-    "license": "license",
+    "license": "MIT",
     "authors": [
         {
             "name": "Sajad Mazaheri",
