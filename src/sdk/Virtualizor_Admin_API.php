@@ -176,6 +176,7 @@ class Virtualizor_Admin_API {
 		curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
 
 		// Get response from the server.
+		print_r($url);
 		print_r($post);
 		echo '----------';
 		$resp = curl_exec($ch);
