@@ -38,7 +38,11 @@ class Virtualizor{
 
         $post['virt'] = 'kvm';
 
-         $this->virtualizoAdmin->addvs_v2($post);
+         return $this->virtualizoAdmin->addvs_v2($post);
+    }
+
+    public function deleteInstance($vid){
+        return $this->virtualizoAdmin->delete_vs($vid);
     }
 }
 
