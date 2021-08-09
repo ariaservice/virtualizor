@@ -32,4 +32,13 @@ class Virtualizor{
     public function serviceDetails($vpsId){
         return $this->virtualizorEnduser->vpsmanage((int) $vpsId);
     }
+
+    public function createInstance($post = []){
+       //https://www.virtualizor.com/docs/admin-api/create-vps/
+
+        $post['virt'] = 'kvm';
+
+        return $this->virtualizoAdmin->addvs_v2($post);
+    }
 }
+
