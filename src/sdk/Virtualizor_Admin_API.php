@@ -176,13 +176,11 @@ class Virtualizor_Admin_API {
 		curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
 
 		// Get response from the server.
-		print_r($url);
-		print_r($post);
-		echo '----------';
+
 		$resp = curl_exec($ch);
 		curl_close($ch);
 
-		print_r($resp);
+
 
 		// The following line is a method to test
 		//if(preg_match('/sync/is', $url)) echo $resp;
