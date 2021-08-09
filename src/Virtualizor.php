@@ -44,5 +44,29 @@ class Virtualizor{
     public function deleteInstance($vid){
         return $this->virtualizoAdmin->delete_vs($vid);
     }
+
+    public function startInstance($vid){
+        return $this->virtualizoAdmin->start($vid);
+    }
+
+    public function stopInstance($vid){
+        return $this->virtualizoAdmin->stop($vid);
+    }
+
+    public function restartInstance($vid){
+        return $this->virtualizoAdmin->restart($vid);
+    }
+
+    public function powerOffInstance($vid){
+        return $this->virtualizoAdmin->poweroff($vid);
+    }
+
+    public function suspendInstance($vid){
+        return $this->virtualizoAdmin->suspend($vid);
+    }
+
+    public function unsuspendInstance($vid){
+        return $this->virtualizoAdmin->unsuspend($vid);
+    }
 }
 
