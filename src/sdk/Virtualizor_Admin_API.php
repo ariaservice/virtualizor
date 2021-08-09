@@ -309,6 +309,7 @@ class Virtualizor_Admin_API {
 		$post['addvps'] = 1;
 		$post['node_select'] = 1;
 		$ret = $this->call($path, '', $post, $cookies);
+		print_r($ret);exit;
 		return array(
 			'title' => $ret['title'],
 			'error' => @empty($ret['error']) ? array() : $ret['error'],

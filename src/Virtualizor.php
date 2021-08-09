@@ -38,7 +38,7 @@ class Virtualizor{
 
         $post['virt'] = 'kvm';
 
-        return $this->virtualizoAdmin->addvs_v2($post);
+         $this->virtualizoAdmin->addvs_v2($post);
     }
 }
 
