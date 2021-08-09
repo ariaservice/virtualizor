@@ -176,8 +176,12 @@ class Virtualizor_Admin_API {
 		curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
 
 		// Get response from the server.
+		print_r($post);
+		echo '----------';
 		$resp = curl_exec($ch);
 		curl_close($ch);
+
+		print_r($resp);
 
 		// The following line is a method to test
 		//if(preg_match('/sync/is', $url)) echo $resp;
@@ -309,7 +313,7 @@ class Virtualizor_Admin_API {
 		$post['addvps'] = 1;
 		$post['node_select'] = 1;
 		$ret = $this->call($path, '', $post, $cookies);
-		print_r($ret);exit;
+
 		return array(
 			'title' => $ret['title'],
 			'error' => @empty($ret['error']) ? array() : $ret['error'],
