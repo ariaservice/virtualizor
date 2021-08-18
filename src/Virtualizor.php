@@ -68,5 +68,29 @@ class Virtualizor{
     public function unsuspendInstance($vid){
         return $this->virtualizoAdmin->unsuspend($vid);
     }
+
+    public function changePasswordInstance($vid,$password){
+        $return = $this->virtualizorEnduser->changepassword($vid,$password);
+        $this->virtualizoAdmin->restart($vid);
+
+        return $return;
+    }
+
+    public function osreinstallInstance($osId,$password,$vid){
+        $post['reinsos'] = 1;
+        $post['newos'] = $osId;
+        $post['newpass'] = $password;
+        $post['conf'] = $post['newpass'];
+        return $this->virtualizorEnduser->os($post,$vid);
+    }
+
+    public function changeVncPasswordInstance($newPassword,$vid){
+
+        $return =  $this->virtualizorEnduser->vncpass($newPassword,$vid);
+
+        $this->virtualizoAdmin->restart($vid);
+
+        return $return;
+    }
 }
 
