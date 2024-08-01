@@ -18,13 +18,13 @@
     },
     "autoload": {
         "psr-4": {
-            "YourName\\Virtualizor\\": "src/"
+            "Ariaservice\\Virtualizor\\": "src/"
         }
     },
     "extra": {
         "laravel": {
             "providers": [
-                "YourName\\Virtualizor\\VirtualizorServiceProvider"
+                "Ariaservice\\Virtualizor\\VirtualizorServiceProvider"
             ]
         }
     },
