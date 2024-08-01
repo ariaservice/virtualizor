@@ -29,6 +29,11 @@ class Virtualizor{
         $this->virtualizorEnduser->is_admin = $is_admin;
     }
 
+    public function manageInstance($vpsId,$data = []){
+        $data['vpsid'] = (int) $vpsId;
+        return $this->virtualizoAdmin->managevps($data);
+    }
+
     public function getInstances($page=0,$resLen=50){
         return $this->virtualizoAdmin->listvs();
     }
