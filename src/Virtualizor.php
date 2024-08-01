@@ -101,5 +101,9 @@ class Virtualizor{
 
         return $return;
     }
+
+    public function unsuspend_net($vid){
+        return $this->virtualizoAdmin->unsuspend_net($vid);
+    }
 }
 
