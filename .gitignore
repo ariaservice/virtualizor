@@ -1,0 +1,46 @@
+# Laravel specific
+/vendor
+/node_modules
+/public/storage
+/public/hot
+/storage/*.key
+/.env
+/.env.backup
+/.phpunit.result.cache
+Homestead.json
+Homestead.yaml
+
+# IDEs and editors
+/.idea
+/.vscode
+/*.sublime-project
+/*.sublime-workspace
+/.phpstorm.meta.php
+/_ide_helper.php
+
+# OS generated files
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+
+# Package specific
+/build
+/composer.lock
+/.php_cs.cache
+/.php_cs
+/.phpunit.cache
+
+# Logs and databases
+*.log
+*.sql
+*.sqlite
+
+# Other
+*.swp
+*.bak
+*.tmp
+*~
