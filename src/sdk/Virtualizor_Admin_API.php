@@ -21,6 +21,8 @@
 //////////////////////////////////////////////////////////////
 namespace Ariaservice\Virtualizor\sdk;
 
+use Mockery\Exception;
+
 class Virtualizor_Admin_API {
 
 	var $key = '';
@@ -137,65 +139,74 @@ class Virtualizor_Admin_API {
 	 */
 	function call($path, $data = array(), $post = array(), $cookies = array()){
 
-		$key = $this->generateRandStr(8);
-		$apikey = $this->make_apikey($key, $this->pass);
+		try {
+			$key = $this->generateRandStr(8);
+			$apikey = $this->make_apikey($key, $this->pass);
 
-		$url = ($this->protocol).'://'.$this->ip.':'. $this->port .'/'. $path;
-		$url .= (strstr($url, '?') ? '' : '?');
-		$url .= '&api=serialize&apikey='.rawurlencode($apikey);
+			$url = ($this->protocol).'://'.$this->ip.':'. $this->port .'/'. $path;
+			$url .= (strstr($url, '?') ? '' : '?');
+			$url .= '&api=serialize&apikey='.rawurlencode($apikey);
 
-		// Pass some data if there
-		if(!empty($data)){
-			$url .= '&apidata='.rawurlencode(base64_encode(serialize($data)));
+			// Pass some data if there
+			if(!empty($data)){
+				$url .= '&apidata='.rawurlencode(base64_encode(serialize($data)));
+			}
+			// Set the curl parameters.
+			//  print_r()
+			$ch = curl_init();
+			curl_setopt($ch, CURLOPT_URL, $url);
+
+			// Time OUT
+			curl_setopt($ch, CURLOPT_CONNECTTIMEOUT, 20);
+			curl_setopt($ch, CURLOPT_TIMEOUT, 40); // Added overall timeout
+
+			// Turn off the server and peer verification (TrustManager Concept).
+			curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, FALSE);
+			curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, FALSE);
+
+			// UserAgent
+			curl_setopt($ch, CURLOPT_USERAGENT, 'Softaculous');
+			curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+
+			// Cookies
+			if(!empty($cookies)){
+				curl_setopt($ch, CURLOPT_COOKIESESSION, true);
+				curl_setopt($ch, CURLOPT_COOKIE, http_build_query($cookies, '', '; '));
+			}
+
+			if(!empty($post)){
+				curl_setopt($ch, CURLOPT_POST, 1);
+				curl_setopt($ch, CURLOPT_POSTFIELDS, http_build_query($post));
+			}
+
+			curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+
+			// Get response from the server.
+
+			$resp = curl_exec($ch);
+			curl_close($ch);
+
+			// $res = (unserialize($resp));
+			//  print_r($res['error']);
+
+			// The following line is a method to test
+			//if(preg_match('/sync/is', $url)) echo $resp;
+
+			if(empty($resp)){
+				return false;
+			}
+
+			$r = @unserialize($resp);
+
+			if(empty($r)){
+				return false;
+			}
+
+			return $r;
+
+		}catch (Exception $e){
+
 		}
-		// Set the curl parameters.
-		$ch = curl_init();
-		curl_setopt($ch, CURLOPT_URL, $url);
-
-		// Time OUT
-		curl_setopt($ch, CURLOPT_CONNECTTIMEOUT, 3);
-
-		// Turn off the server and peer verification (TrustManager Concept).
-		curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, FALSE);
-		curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, FALSE);
-
-		// UserAgent
-		curl_setopt($ch, CURLOPT_USERAGENT, 'Softaculous');
-
-		// Cookies
-		if(!empty($cookies)){
-			curl_setopt($ch, CURLOPT_COOKIESESSION, true);
-			curl_setopt($ch, CURLOPT_COOKIE, http_build_query($cookies, '', '; '));
-		}
-
-		if(!empty($post)){
-			curl_setopt($ch, CURLOPT_POST, 1);
-			curl_setopt($ch, CURLOPT_POSTFIELDS, http_build_query($post));
-		}
-
-		curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
-
-		// Get response from the server.
-
-		$resp = curl_exec($ch);
-		curl_close($ch);
-
-
-
-		// The following line is a method to test
-		//if(preg_match('/sync/is', $url)) echo $resp;
-
-		if(empty($resp)){
-			return false;
-		}
-
-		$r = @unserialize($resp);
-
-		if(empty($r)){
-			return false;
-		}
-
-		return $r;
 
 	}
 
