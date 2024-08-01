@@ -23,7 +23,7 @@ $result = Virtualizor::virtualize($data);
 Publish the configuration file:
 
 ```bash
-php artisan vendor:publish --provider="YourName\Virtualizor\VirtualizorServiceProvider" --tag="config"
+php artisan vendor:publish --provider="Ariaservice\Virtualizor\VirtualizorServiceProvider" --tag="config"
 ```
 
 ## Testing
